@@ -30,4 +30,11 @@ public abstract class Unit {
     public int getHp() {
         return hp;
     }
+
+    public void reduceHP(int damage) {
+        hp -= damage;
+    }
+
+    public abstract int getTotalAttackValue();
+    public abstract int getTotalDefenceValue();
 }

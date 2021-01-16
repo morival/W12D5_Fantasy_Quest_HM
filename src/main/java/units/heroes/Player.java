@@ -7,7 +7,6 @@ import items.weapons.WeaponType;
 import units.Unit;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 
@@ -68,5 +67,6 @@ public abstract class Player extends Unit{
         int TotalDefenceValue = this.getDefence() + findArmourInInventory().getDefenceValue();
         return TotalDefenceValue;
     }
+
 
 }
