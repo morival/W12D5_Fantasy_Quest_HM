@@ -1,3 +1,5 @@
+import items.armours.Armour;
+import items.armours.ArmourType;
 import items.weapons.Weapon;
 import items.weapons.WeaponType;
 import org.junit.Before;
@@ -8,14 +10,18 @@ import static org.junit.Assert.assertEquals;
 
 public class BarbarianTest {
 
-    Barbarian barbarian;
     Weapon weapon;
     Weapon weapon2;
+    Armour armour;
+    Armour armour2;
+    Barbarian barbarian;
 
     @Before
     public void setUp() {
         weapon = new Weapon("Sword", WeaponType.SWORD);
         weapon2 = new Weapon("Mace", WeaponType.MACE);
+        armour = new Armour("Leather", ArmourType.LEATHER);
+        armour2 = new Armour("Chain_Mail", ArmourType.CHAIN_MAIL);
         barbarian = new Barbarian("Barbarian", 32, 2, 725);
     }
 
@@ -52,9 +58,33 @@ public class BarbarianTest {
 
     @Test
     public void canActivateStrongestWeaponInInventory() {
+        barbarian.addToInventory(armour2);
+        assertEquals(32,barbarian.getTotalAttackValue());
         barbarian.addToInventory(weapon);
         barbarian.addToInventory(weapon2);
         assertEquals(37,barbarian.getTotalAttackValue());
-        assertEquals(2, barbarian.inventoryCount());
+        assertEquals(3, barbarian.inventoryCount());
     }
+
+    @Test
+    public void canAddAndActivateStrongestArmourInInventory() {
+        barbarian.addToInventory(weapon);
+        assertEquals(1, barbarian.inventoryCount());
+        assertEquals(2, barbarian.getTotalDefenceValue());
+        barbarian.addToInventory(armour);
+        barbarian.addToInventory(armour2);
+        assertEquals(3, barbarian.inventoryCount());
+        assertEquals(7, barbarian.getTotalDefenceValue());
+    }
+
+    @Test
+    public void canAutoFitBestWeaponAndArmourFromInventory() {
+        barbarian.addToInventory(weapon);
+        barbarian.addToInventory(weapon2);
+        barbarian.addToInventory(armour2);
+        barbarian.addToInventory(armour);
+        assertEquals(37, barbarian.getTotalAttackValue());
+        assertEquals(7, barbarian.getTotalDefenceValue());
+    }
+
 }

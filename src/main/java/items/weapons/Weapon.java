@@ -22,4 +22,9 @@ public class Weapon extends Item {
     public WeaponType getType() {
         return weaponType;
     }
+
+    @Override
+    public int getDefenceValue() {
+        return 0;
+    }
 }

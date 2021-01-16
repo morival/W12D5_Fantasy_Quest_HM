@@ -1,4 +1,30 @@
 package items.armours;
 
-public class Armour {
+import items.Item;
+
+public class Armour extends Item {
+
+    private ArmourType armourType;
+
+    public Armour(String name, ArmourType armourType) {
+        super(armourType.name());
+        this.armourType = armourType;
+    }
+
+    public String getArmourName() {
+        return getName();
+    }
+
+    public int getDefenceValue() {
+        return armourType.getArmourStrength();
+    }
+
+    public ArmourType getArmourType() {
+        return armourType;
+    }
+
+    @Override
+    public int getDamageValue() {
+        return 0;
+    }
 }

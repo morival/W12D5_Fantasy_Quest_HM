@@ -13,4 +13,6 @@ public abstract class Item {
     }
 
     public abstract int getDamageValue();
+
+    public abstract int getDefenceValue();
 }

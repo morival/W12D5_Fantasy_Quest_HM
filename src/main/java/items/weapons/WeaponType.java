@@ -3,12 +3,11 @@ package items.weapons;
 public enum WeaponType {
 
     NON(0),
-    AXE(3),
     SWORD(5),
     CLAYMORE(6),
     WAR_HAMMER(4),
-    BATTLEAXE(5),
-    DAGGER(1),
+    BATTLEAXE(6),
+    DAGGER(2),
     CLUB(1),
     MACE(3);
 
