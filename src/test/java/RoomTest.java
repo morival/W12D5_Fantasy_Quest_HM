@@ -100,7 +100,17 @@ public class RoomTest {
     public void hasDuelWithWeaponAndArmour() {
         equipBarbarian();
         room.setFightTurn(barbarian, troll);
+        int damageOnTroll = room.getDamageCount(barbarian, troll);
+        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
+        assertEquals(35, damageOnTroll);
+        assertEquals(14, damageOnBarbarian);
         assertEquals(265, troll.getHp());
         assertEquals(711, barbarian.getHp());
+    }
+
+    @Test
+    public void canFightTillDead() {
+        equipBarbarian();
+        assertEquals(barbarian, room.setFightTillDead(barbarian, troll));
     }
 }

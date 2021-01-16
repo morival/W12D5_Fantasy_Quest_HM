@@ -75,10 +75,26 @@ public class Room {
         getHPReductionFromDamage(b, a);
     }
 
-    public void setFightTillKill(Unit a, Unit b) {
+    public Unit setFightTillDead(Unit a, Unit b) {
         setFightTurn(a, b);
-//        System.out.println( "Hero received " + getUnit2Damage(unit2) + " damage and has " + unit1.getHP() + " HP.");
-//        System.out.println( "Enemy received " + getUnit1Damage(unit1) + " damage and has " + unit2.getHP() + " HP.")
+//        System.out.println( a.getName() + " received " + getDamageCount(b, a) + " damage and has " + a.getHp() + " HP.");
+//        System.out.println( b.getName() + " received " + getDamageCount(a, b) + " damage and has " + b.getHp() + " HP.");
+        if (a.getHp() > 0 && b.getHp() > 0) {
+            return setFightTillDead(a, b);
+        } else if (a.getHp() <= 0) {
+            System.out.println(b.getName() + " won!");
+            return b;
+        } else if (b.getHp() <= 0) {
+            System.out.println(a.getName() + " won!");
+            return a;
+        } else {
+            System.out.println("Error");
+            return null;
+        }
+    }
+
+    public String setEnemies(ArrayList<Unit> team1, ArrayList<Unit> team2){
+        
     }
 
 
