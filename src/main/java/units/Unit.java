@@ -42,7 +42,7 @@ public abstract class Unit {
 
     public abstract void addGold(int dividedAmount);
 
-    public abstract void addInventory(Item item);
+    public abstract void addToInventory(Item item);
 
     public abstract int inventoryCount();
 }

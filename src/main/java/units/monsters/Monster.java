@@ -28,7 +28,7 @@ public class Monster extends Unit {
     }
 
     @Override
-    public void addInventory(Item item) {
+    public void addToInventory(Item item) {
 
     }
 

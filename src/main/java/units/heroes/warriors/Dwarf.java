@@ -7,8 +7,5 @@ public class Dwarf extends Warrior{
         super("Mountain King", 31, 2, 700, 0);
     }
 
-    @Override
-    public void addInventory(Item item) {
 
-    }
 }

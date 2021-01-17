@@ -24,6 +24,7 @@ public class RoomTest {
     Armour armour3;
     Armour armour4;
     Gold gold;
+    Gold gold2;
     Player barbarian;
     Player dwarf;
     Monster ogre;
@@ -31,6 +32,8 @@ public class RoomTest {
     Monster kobold;
     Monster giantSpider;
     Monster dragon;
+    String story1;
+    String story2;
     Room room;
 
     @Before
@@ -44,6 +47,7 @@ public class RoomTest {
         armour3 = new Armour("Breast Plate", ArmourType.BREST_PLATE);
         armour4 = new Armour("Chain Mail", ArmourType.CHAIN_MAIL);
         gold = new Gold("Gold", 200);
+        gold2 = new Gold("Gold", 10000);
         barbarian = new Barbarian("Barbarian", 32, 2, 725, 0);
         dwarf = new Dwarf("Mountain King", 31, 2, 700, 0);
         ogre = new Monster("Ogre", 14, 1, 400, MonsterType.OGRE);
@@ -51,7 +55,9 @@ public class RoomTest {
         kobold = new Monster("KOBOLD", 13, 1, 325, MonsterType.KOBOLD);
         giantSpider = new Monster("GIANT SPIDER", 19, 1, 550, MonsterType.GIANT_SPIDER);
         dragon = new Monster("DRAGON", 60, 6, 2200, MonsterType.DRAGON);
-        room = new Room();
+        story1 = " traveled far beyond the Misty Mountains. After a long journey they encountered few monsters on their path. Prepare for battle!";
+        story2 = " reached the Dragon Liar. The greed pushed them against something they never fought before...";
+        room = new Room(story1);
     }
     public void equipBarbarian() {
         barbarian.addToInventory(weapon1);
@@ -81,6 +87,21 @@ public class RoomTest {
         room.addItemToTreasure(gold);
         room.addItemToTreasure(weapon4);
         room.addItemToTreasure(armour4);
+    }
+
+    public void setRoom() {
+        setParty();
+        setOpponents();
+        setTreasure();
+        room.setQuest(room.getParty(), room.getOpponents(), story1);
+    }
+
+    public void setRoom2() {
+        setParty();
+        room.addUnitToOpponents(dragon);
+        room.addItemToTreasure(gold2);
+        room.setQuest(room.getParty(), room.getOpponents(), story2);
+
     }
 
 
@@ -145,12 +166,17 @@ public class RoomTest {
     public void canShareTreasuresBetweenHeroes() {
         setParty();
         setTreasure();
+        assertEquals(2, room.partyCount());
         assertEquals(3, room.treasureCount());
+        assertEquals(2, barbarian.inventoryCount());
+        assertEquals(2, dwarf.inventoryCount());
         assertEquals(4, room.itemsOwnedByHeroes());
         room.partyLootTreasure();
+        assertEquals(barbarian, room.getParty().get(0));
         assertEquals(6, room.itemsOwnedByHeroes());
         assertEquals(0, room.treasureCount());
-
+        assertEquals(100, barbarian.getGold());
+        assertEquals(100, dwarf.getGold());
     }
 
     @Test
@@ -159,15 +185,26 @@ public class RoomTest {
         assertEquals(268, troll.getHp());
     }
 
+
+
+    // GAME TEST
+
+//    @Test
+//    public void canSetTeamsForCombat() {
+//        setRoom();
+//        assertEquals(2, room.partyCount());
+//        assertEquals(0, room.opponentsCount());
+//        assertEquals(6, room.itemsOwnedByHeroes());
+//        assertEquals(0, room.treasureCount());
+//        assertEquals(100, barbarian.getGold());
+//        assertEquals(100, dwarf.getGold());
+//    }
+
     @Test
-    public void canSetTeamsForCombat() {
-        setParty();
-        setTreasure();
-        System.out.println();
-        setOpponents();
-        room.setRoom(room.getParty(), room.getOpponents());
-        assertEquals(2, room.partyCount());
-        assertEquals(0, room.opponentsCount());
+    public void canOverkillWithDragon() {
+        setRoom2();
+        assertEquals(0, room.partyCount());
+        assertEquals(1, room.opponentsCount());
     }
 
 }

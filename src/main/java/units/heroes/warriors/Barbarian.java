@@ -13,8 +13,4 @@ public class Barbarian extends Warrior{
     }
 
 
-    @Override
-    public void addInventory(Item item) {
-
-    }
 }

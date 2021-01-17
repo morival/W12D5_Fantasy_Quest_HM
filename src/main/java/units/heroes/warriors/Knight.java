@@ -7,8 +7,5 @@ public class Knight extends Warrior{
         super("Sir Lancelot", 29, 4, 650, 0);
     }
 
-    @Override
-    public void addInventory(Item item) {
 
-    }
 }

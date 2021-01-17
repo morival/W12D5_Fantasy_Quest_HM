@@ -3,7 +3,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 import items.Item;
-import items.treasures.Gold;
 import units.Unit;
 
 public class Room {
@@ -11,12 +10,13 @@ public class Room {
     private ArrayList<Unit> party;
     private ArrayList<Unit> opponents;
     private ArrayList<Item> treasure;
-    private Object Gold;
+    private String story;
 
-    public Room() {
+    public Room(String story) {
         this.party = new ArrayList<Unit>();
         this.opponents = new ArrayList<Unit>();
         this.treasure = new ArrayList<Item>();
+        this.story = story;
     }
 
 
@@ -111,15 +111,14 @@ public class Room {
         };
     }
 
+
     public void partyLootItems() {
         for (Item item : treasure) {
             Random rand = new Random();
             Unit unit = party.get(rand.nextInt(party.size()));
             if (!item.getName().contains("Gold") ) {
-                unit.addInventory(item);
+                unit.addToInventory(item);
             }
-//            Unit unit2 = team2.get(rand.nextInt(team2.size()));
-//            setFightTurn(unit, unit2);
         }
     }
 
@@ -150,39 +149,31 @@ public class Room {
 
 
     // Battle
+    public void attackRandomEnemy(ArrayList<Unit> team1, ArrayList<Unit> team2) {
+        Random rand = new Random();
+        for (Unit unit : team1) {
+            if (team2.size() > 0) {
+                Unit unit2 = team2.get(rand.nextInt(team2.size()));
+                setFightTurn(unit, unit2);
+                if (unit2.getHp() <= 0) {
+                    System.out.println(unit2.getName() + " died");
+                    team2.remove(unit2);
+                }
+            }
+        }
+    }
+
     public ArrayList<Unit> setBattle(ArrayList<Unit> team1, ArrayList<Unit> team2) {
-        if (team1.size() <= 0 && team2.size() <= 0) {
-            System.out.println("No units in both teams");
-            return null;
-        } else if (team1.size() > 0 && team2.size() <= 0) {
+         if (team1.size() > 0 && team2.size() <= 0) {
             System.out.println("Your party won!");
             getTeamRemainingHP(team1);
             return team1;
         } else if (team1.size() <= 0 && team2.size() > 0) {
-            System.out.println(team2.toString() + "Your party died");
+            System.out.println("Your party is dead");
             return null;
         } else {
-            Random rand = new Random();
-            for (Unit unit : team1) {
-                if (team2.size() > 0) {
-                    Unit unit2 = team2.get(rand.nextInt(team2.size()));
-                    setFightTurn(unit, unit2);
-                    if (unit2.getHp() <= 0) {
-                        System.out.println(unit2.getName() + " died");
-                        team2.remove(unit2);
-                    }
-                }
-            }
-            for (Unit unit : team2) {
-                if (team1.size() > 0) {
-                    Unit unit1 = team1.get(rand.nextInt(team1.size()));
-                    setFightTurn(unit, unit1);
-                    if (unit1.getHp() <= 0) {
-                        System.out.println(unit1.getName() + " died");
-                        team1.remove(unit1);
-                    }
-                }
-            }
+            attackRandomEnemy(team1, team2);
+            attackRandomEnemy(team2, team1);
             setBattle(team1, team2);
         }
         return team1;
@@ -194,27 +185,31 @@ public class Room {
         }
     }
 
-    public void setRoom (ArrayList<Unit> team1, ArrayList<Unit> team2) {
-        ArrayList<String> teamNames = new ArrayList<>();
+    public void setQuest (ArrayList<Unit> team1, ArrayList<Unit> team2, String story) {
+        ArrayList<String> partyNames = new ArrayList<>();
         for (Unit unit1 : team1) {
-            teamNames.add(unit1.getName());
+            partyNames.add(unit1.getName());
         }
-        System.out.println(Arrays.toString(teamNames.toArray())
+        System.out.println(Arrays.toString(partyNames.toArray())
                 .replace(",", " and")
                 .replace("[", "")
                 .replace("]", "")
-                + " after long journey encountered few monsters on their path.");
-        System.out.println("Prepare for battle!");
+                + story);
 //        if (setBattle(team1, team2) != null) {
             ArrayList<Unit> team = setBattle(team1, team2);
-        System.out.println("Your party found a treasure!");
-        ArrayList<String> treasureNames = new ArrayList<>();
-        for (Item item : treasure) {
-            treasureNames.add(item.getName());
+        if (team1.size() > 0) {
+            System.out.println("Your party found a treasure!");
+            ArrayList<String> treasureNames = new ArrayList<>();
+            for (Item item : treasure) {
+                treasureNames.add(item.getName());
+            }
+            System.out.println(Arrays.toString(treasureNames.toArray())
+                    .replace(",", " and")
+                    .replace("[", "")
+                    .replace("]", ""));
+            partyLootTreasure();
+        } else {
+            System.out.println("GAME OVER");
         }
-        System.out.println(Arrays.toString(treasureNames.toArray())
-                .replace(",", " and")
-                .replace("[", "")
-                .replace("]", ""));
     }
 }
