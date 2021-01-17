@@ -1,11 +1,13 @@
 import items.armours.Armour;
 import items.armours.ArmourType;
+import items.magic.ElementalSpells;
 import items.treasures.Gold;
 import items.weapons.Weapon;
 import items.weapons.WeaponType;
 import org.junit.Before;
 import org.junit.Test;
 import units.heroes.Player;
+import units.heroes.mages.Wizard;
 import units.heroes.warriors.Barbarian;
 import units.heroes.warriors.Dwarf;
 import units.monsters.Monster;
@@ -27,6 +29,7 @@ public class RoomTest {
     Gold gold2;
     Player barbarian;
     Player dwarf;
+    Player wizard;
     Monster ogre;
     Monster troll;
     Monster kobold;
@@ -50,6 +53,7 @@ public class RoomTest {
         gold2 = new Gold("Gold", 10000);
         barbarian = new Barbarian("Barbarian", 32, 2, 725, 0);
         dwarf = new Dwarf("Mountain King", 31, 2, 700, 0);
+        wizard = new Wizard("Wizard", 24, 3, 450, 0, 285, ElementalSpells.LIGHTNING);
         ogre = new Monster("Ogre", 14, 1, 400, MonsterType.OGRE);
         troll = new Monster("TROLL", 18, 0, 300, MonsterType.TROLL);
         kobold = new Monster("KOBOLD", 13, 1, 325, MonsterType.KOBOLD);
@@ -185,6 +189,8 @@ public class RoomTest {
         assertEquals(268, troll.getHp());
     }
 
+//    @Test
+//    public void
 
 
     // GAME TEST
