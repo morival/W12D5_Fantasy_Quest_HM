@@ -51,6 +51,23 @@ public class RoomTest {
         barbarian.addToInventory(armour2);
     }
 
+    public void equipDwarf() {
+        dwarf.addToInventory(weapon3);
+        dwarf.addToInventory(armour3);
+    }
+
+    public void setParty() {
+        equipBarbarian();
+        equipDwarf();
+        room.addUnitToParty(barbarian);
+        room.addUnitToParty(dwarf);
+    }
+
+    public void setOpponents() {
+        room.addUnitToOpponents(ogre);
+        room.addUnitToOpponents(troll);
+    }
+
     @Test
     public void canCheckStats() {
         assertEquals("OGRE", ogre.getName());
@@ -85,32 +102,42 @@ public class RoomTest {
         assertEquals(268, troll.getHp());
     }
 
-    @Test
-    public void hasDuel() {
-        room.setFightTurn(barbarian, troll);
-        int damageOnTroll = room.getDamageCount(barbarian, troll);
-        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
-        assertEquals(32, damageOnTroll);
-        assertEquals(16, damageOnBarbarian);
-        assertEquals(268, troll.getHp());
-        assertEquals(709, barbarian.getHp());
-    }
+//    @Test
+//    public void hasDuel() {
+//        room.setFightTurn(barbarian, troll);
+//        int damageOnTroll = room.getDamageCount(barbarian, troll);
+//        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
+//        assertEquals(32, damageOnTroll);
+//        assertEquals(16, damageOnBarbarian);
+//        assertEquals(268, troll.getHp());
+//        assertEquals(709, barbarian.getHp());
+//    }
+
+//    @Test
+//    public void hasDuelWithWeaponAndArmour() {
+//        equipBarbarian();
+//        room.setFightTurn(barbarian, troll);
+//        int damageOnTroll = room.getDamageCount(barbarian, troll);
+//        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
+//        assertEquals(35, damageOnTroll);
+//        assertEquals(14, damageOnBarbarian);
+//        assertEquals(265, troll.getHp());
+//        assertEquals(711, barbarian.getHp());
+//    }
+
+//    @Test
+//    public void canFightTillDead() {
+//        equipBarbarian();
+//        assertEquals(barbarian, room.setFightTillDead(barbarian, troll));
+//    }
 
     @Test
-    public void hasDuelWithWeaponAndArmour() {
-        equipBarbarian();
-        room.setFightTurn(barbarian, troll);
-        int damageOnTroll = room.getDamageCount(barbarian, troll);
-        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
-        assertEquals(35, damageOnTroll);
-        assertEquals(14, damageOnBarbarian);
-        assertEquals(265, troll.getHp());
-        assertEquals(711, barbarian.getHp());
+    public void setTeamsForCombat() {
+        setParty();
+        setOpponents();
+        room.setEnemies(room.getParty(), room.getOpponents());
+//        assertEquals(2, room.partyCount());
+//        assertEquals(2, room.opponentsCount());
     }
 
-    @Test
-    public void canFightTillDead() {
-        equipBarbarian();
-        assertEquals(barbarian, room.setFightTillDead(barbarian, troll));
-    }
 }
