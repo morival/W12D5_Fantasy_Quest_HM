@@ -109,10 +109,10 @@ public class RoomTest {
     }
 
     @Test
-    public void setTeamsForCombat() {
+    public void canSetTeamsForCombat() {
         setParty();
         setOpponents();
-        room.setEnemies(room.getParty(), room.getOpponents());
+        room.setRoom(room.getParty(), room.getOpponents());
         assertEquals(2, room.partyCount());
         assertEquals(0, room.opponentsCount());
     }

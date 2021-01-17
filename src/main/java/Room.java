@@ -79,7 +79,7 @@ public class Room {
 
 
     // Battle
-    public ArrayList<Unit> setEnemies(ArrayList<Unit> team1, ArrayList<Unit> team2){
+    public ArrayList<Unit> setBattle(ArrayList<Unit> team1, ArrayList<Unit> team2) {
         ArrayList<Unit> victoriousTeam = null;
         if (team1.size() <= 0 && team2.size() <= 0) {
             System.out.println("No units in both teams");
@@ -90,8 +90,7 @@ public class Room {
             return victoriousTeam;
         } else if (team1.size() <= 0 && team2.size() > 0) {
             System.out.println(team2.toString() + "Your party died");
-            victoriousTeam = team2;
-            return victoriousTeam;
+            return null;
         } else {
             Random rand = new Random();
             for (Unit unit : team1) {
@@ -114,13 +113,15 @@ public class Room {
                     }
                 }
             }
-            setEnemies(team1, team2);
-        } return null;
+            setBattle(team1, team2);
+        }
+        return victoriousTeam; // TO BE FIXED
     }
 
     public void setRoom (ArrayList<Unit> team1, ArrayList<Unit> team2) {
-        if (setEnemies(team1, team2) == team1) {
-
-        }
+//        if (setBattle(team1, team2) != null) {
+            ArrayList<Unit> team = setBattle(team1, team2);
+        System.out.println(team);
+//        }
     }
 }
