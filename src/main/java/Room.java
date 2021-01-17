@@ -1,15 +1,20 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Random;
+
+import items.Item;
 import units.Unit;
 
 public class Room {
 
     private ArrayList<Unit> party;
     private ArrayList<Unit> opponents;
+    private ArrayList<Item> treasure;
 
     public Room() {
         this.party = new ArrayList<Unit>();
         this.opponents = new ArrayList<Unit>();
+        this.treasure = new ArrayList<Item>();
     }
 
 
@@ -73,21 +78,18 @@ public class Room {
     public void setFightTurn(Unit a, Unit b) {
         getHPReductionFromDamage(a, b);
         System.out.println( b.getName() + " has " + b.getHp() + " HP after receiving " + getDamageCount(a, b) + " damage from " + a.getName());
-        getHPReductionFromDamage(b, a);
-        System.out.println( a.getName() + " has " + a.getHp() + " HP after receiving " + getDamageCount(b, a) + " damage from " + b.getName());
     }
 
 
     // Battle
     public ArrayList<Unit> setBattle(ArrayList<Unit> team1, ArrayList<Unit> team2) {
-        ArrayList<Unit> victoriousTeam = null;
         if (team1.size() <= 0 && team2.size() <= 0) {
             System.out.println("No units in both teams");
             return null;
         } else if (team1.size() > 0 && team2.size() <= 0) {
             System.out.println("Your party won!");
-            victoriousTeam = team1;
-            return victoriousTeam;
+            getTeamRemainingHP(team1);
+            return team1;
         } else if (team1.size() <= 0 && team2.size() > 0) {
             System.out.println(team2.toString() + "Your party died");
             return null;
@@ -115,13 +117,28 @@ public class Room {
             }
             setBattle(team1, team2);
         }
-        return victoriousTeam; // TO BE FIXED
+        return team1;
+    }
+
+    public void getTeamRemainingHP(ArrayList<Unit> team) {
+        for (Unit unit : team) {
+            System.out.println(unit.getName() + " survived with " + unit.getHp() + " HP");
+        }
     }
 
     public void setRoom (ArrayList<Unit> team1, ArrayList<Unit> team2) {
+        ArrayList<String> teamNames = new ArrayList<>();
+        for (Unit unit1 : team1) {
+            teamNames.add(unit1.getName());
+        }
+        System.out.println(Arrays.toString(teamNames.toArray())
+                .replace(",", " and")
+                .replace("[", "")
+                .replace("]", "") + " after long journey encountered few monsters on their path.");
+        System.out.println("Prepare for battle!");
 //        if (setBattle(team1, team2) != null) {
             ArrayList<Unit> team = setBattle(team1, team2);
-        System.out.println(team);
+        System.out.println("Your party found a treasure!");
 //        }
     }
 }
