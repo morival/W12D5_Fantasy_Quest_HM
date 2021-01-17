@@ -12,11 +12,27 @@ import java.util.Comparator;
 
 public abstract class Player extends Unit{
 
+    int gold;
     ArrayList<Item> inventory;
 
-    public Player(String name, int attack, int defence, int hp) {
+    public Player(String name, int attack, int defence, int hp, int gold) {
         super(name, attack, defence, hp);
+        this.gold = gold;
         this.inventory = new ArrayList<Item>();
+    }
+
+
+    // Gold
+    public int getGold() {
+        return gold;
+    }
+
+    public void addGold(int amount) {
+        gold += amount;
+    }
+
+    public void reduceGold(int amount) {
+        gold -= amount;
     }
 
     // Inventory

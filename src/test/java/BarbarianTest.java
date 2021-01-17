@@ -22,7 +22,7 @@ public class BarbarianTest {
         weapon2 = new Weapon("Mace", WeaponType.MACE);
         armour = new Armour("Leather", ArmourType.LEATHER);
         armour2 = new Armour("Chain_Mail", ArmourType.CHAIN_MAIL);
-        barbarian = new Barbarian("Barbarian", 32, 2, 725);
+        barbarian = new Barbarian("Barbarian", 32, 2, 725, 0);
     }
 
     @Test
@@ -43,6 +43,20 @@ public class BarbarianTest {
     @Test
     public void hasHPValue() {
         assertEquals(725, barbarian.getHp());
+    }
+
+    @Test
+    public void startsWithNoGold() {
+        assertEquals(0, barbarian.getGold());
+    }
+
+    @Test
+    public void canAddAndReduceAmountOfGold() {
+        barbarian.addGold(300);
+        barbarian.addGold(200);
+        assertEquals(500, barbarian.getGold());
+        barbarian.reduceGold(260);
+        assertEquals(240, barbarian.getGold());
     }
 
     @Test

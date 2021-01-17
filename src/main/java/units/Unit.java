@@ -1,5 +1,7 @@
 package units;
 
+import items.Item;
+
 import java.util.ArrayList;
 
 public abstract class Unit {
@@ -37,4 +39,10 @@ public abstract class Unit {
 
     public abstract int getTotalAttackValue();
     public abstract int getTotalDefenceValue();
+
+    public abstract void addGold(int dividedAmount);
+
+    public abstract void addInventory(Item item);
+
+    public abstract int inventoryCount();
 }

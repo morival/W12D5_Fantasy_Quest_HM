@@ -27,4 +27,9 @@ public class Weapon extends Item {
     public int getDefenceValue() {
         return 0;
     }
+
+    @Override
+    public int getAmountOfGold() {
+        return 0;
+    }
 }

@@ -1,5 +1,6 @@
 import items.armours.Armour;
 import items.armours.ArmourType;
+import items.treasures.Gold;
 import items.weapons.Weapon;
 import items.weapons.WeaponType;
 import org.junit.Before;
@@ -22,6 +23,7 @@ public class RoomTest {
     Armour armour2;
     Armour armour3;
     Armour armour4;
+    Gold gold;
     Player barbarian;
     Player dwarf;
     Monster ogre;
@@ -41,8 +43,9 @@ public class RoomTest {
         armour2 = new Armour("Leather", ArmourType.LEATHER);
         armour3 = new Armour("Breast Plate", ArmourType.BREST_PLATE);
         armour4 = new Armour("Chain Mail", ArmourType.CHAIN_MAIL);
-        barbarian = new Barbarian("Barbarian", 32, 2, 725);
-        dwarf = new Dwarf("Mountain King", 31, 2, 700);
+        gold = new Gold("Gold", 200);
+        barbarian = new Barbarian("Barbarian", 32, 2, 725, 0);
+        dwarf = new Dwarf("Mountain King", 31, 2, 700, 0);
         ogre = new Monster("Ogre", 14, 1, 400, MonsterType.OGRE);
         troll = new Monster("TROLL", 18, 0, 300, MonsterType.TROLL);
         kobold = new Monster("KOBOLD", 13, 1, 325, MonsterType.KOBOLD);
@@ -74,6 +77,14 @@ public class RoomTest {
         room.addUnitToOpponents(giantSpider);
     }
 
+    public void setTreasure() {
+        room.addItemToTreasure(gold);
+        room.addItemToTreasure(weapon4);
+        room.addItemToTreasure(armour4);
+    }
+
+
+    // Tests
     @Test
     public void canCheckStats() {
         assertEquals("OGRE", ogre.getName());
@@ -87,19 +98,59 @@ public class RoomTest {
     }
 
     @Test
-    public void canAddAndRemove() {
-        room.addUnitToParty(barbarian);
-        room.addUnitToParty(dwarf);
-        room.addUnitToOpponents(troll);
-        room.addUnitToOpponents(ogre);
-        room.addUnitToOpponents(dragon);
+    public void canAddAndRemoveUnit() {
+        setParty();
+        setOpponents();
         room.removeUnitFromParty(barbarian);
         room.removeUnitFromOpponents(ogre);
         assertEquals(1, room.partyCount());
-        assertEquals(2, room.opponentsCount());
+        assertEquals(3, room.opponentsCount());
         assertEquals(dwarf, room.getParty().get(0));
         assertEquals(troll, room.getOpponents().get(0));
-        assertEquals(dragon, room.getOpponents().get(1));
+        assertEquals(kobold, room.getOpponents().get(1));
+    }
+
+    @Test
+    public void canAddAndRemoveItemFromTreasure() {
+        room.addItemToTreasure(armour1);
+        room.addItemToTreasure(weapon2);
+        assertEquals(2, room.treasureCount());
+        room.removeItemFromTreasure(armour1);
+        assertEquals(1, room.treasureCount());
+    }
+
+    @Test
+    public void canSetTreasureGold() {
+        assertEquals(0, room.treasureGoldCount());
+        room.addItemToTreasure(gold);
+        assertEquals(200, room.treasureGoldCount());
+        assertEquals(1, room.treasureCount());
+    }
+
+    @Test
+    public void canShareGoldBetweenHeroes() {
+        room.addItemToTreasure(gold);
+        room.addUnitToParty(barbarian);
+        room.addUnitToParty(dwarf);
+        assertEquals(200, room.treasureGoldCount());
+        assertEquals(0, barbarian.getGold());
+        assertEquals(0, dwarf.getGold());
+        room.partyLootTreasure();
+        assertEquals(0, room.treasureGoldCount());
+        assertEquals(100, barbarian.getGold());
+        assertEquals(100, dwarf.getGold());
+    }
+
+    @Test
+    public void canShareTreasuresBetweenHeroes() {
+        setParty();
+        setTreasure();
+        assertEquals(3, room.treasureCount());
+        assertEquals(4, room.itemsOwnedByHeroes());
+        room.partyLootTreasure();
+        assertEquals(6, room.itemsOwnedByHeroes());
+        assertEquals(0, room.treasureCount());
+
     }
 
     @Test
@@ -111,6 +162,8 @@ public class RoomTest {
     @Test
     public void canSetTeamsForCombat() {
         setParty();
+        setTreasure();
+        System.out.println();
         setOpponents();
         room.setRoom(room.getParty(), room.getOpponents());
         assertEquals(2, room.partyCount());

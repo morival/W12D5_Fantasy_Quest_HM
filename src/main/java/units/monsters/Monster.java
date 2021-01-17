@@ -1,5 +1,6 @@
 package units.monsters;
 
+import items.Item;
 import units.Unit;
 
 public class Monster extends Unit {
@@ -19,5 +20,20 @@ public class Monster extends Unit {
     @Override
     public int getTotalDefenceValue() {
         return getDefence();
+    }
+
+    @Override
+    public void addGold(int dividedAmount) {
+
+    }
+
+    @Override
+    public void addInventory(Item item) {
+
+    }
+
+    @Override
+    public int inventoryCount() {
+        return 0;
     }
 }

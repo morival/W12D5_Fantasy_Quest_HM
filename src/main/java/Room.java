@@ -3,6 +3,7 @@ import java.util.Arrays;
 import java.util.Random;
 
 import items.Item;
+import items.treasures.Gold;
 import units.Unit;
 
 public class Room {
@@ -10,6 +11,7 @@ public class Room {
     private ArrayList<Unit> party;
     private ArrayList<Unit> opponents;
     private ArrayList<Item> treasure;
+    private Object Gold;
 
     public Room() {
         this.party = new ArrayList<Unit>();
@@ -41,7 +43,7 @@ public class Room {
 
 
     // Opponents
-    public ArrayList<Unit> getOpponents() {
+    public ArrayList<Unit> getOpponents(){
         return opponents;
     }
 
@@ -59,6 +61,72 @@ public class Room {
 
     public int opponentsCount(){
         return opponents.size();
+    }
+
+
+    // Treasure
+    public ArrayList<Item> getTreasure() {
+        return treasure;
+    }
+
+    public void addItemToTreasure(Item item) {
+        treasure.add(item);
+    }
+
+    public void removeItemFromTreasure(Item item) {
+        if (treasure.contains(item)) {
+            treasure.remove(item);
+        } else {
+            System.out.println("Item is not part of the treasure");
+        }
+    }
+
+    public int itemsOwnedByHeroes() {
+        int TotalItemCount = 0;
+        for (Unit unit : party) {
+            TotalItemCount += unit.inventoryCount();
+        } return TotalItemCount;
+    }
+
+    public int treasureCount() {
+        return treasure.size();
+    }
+
+    public int treasureGoldCount() {
+        int amountOfGold = 0;
+        for(Item item : treasure) {
+            if (item.getName().contains("Gold") ) {
+                amountOfGold = item.getAmountOfGold();
+            }
+        }
+        return amountOfGold;
+    }
+
+
+    // Loot
+    public void partyLootGold() {
+        int dividedAmount = treasureGoldCount() / party.size();
+        for (Unit unit : party) {
+            unit.addGold(dividedAmount);
+        };
+    }
+
+    public void partyLootItems() {
+        for (Item item : treasure) {
+            Random rand = new Random();
+            Unit unit = party.get(rand.nextInt(party.size()));
+            if (!item.getName().contains("Gold") ) {
+                unit.addInventory(item);
+            }
+//            Unit unit2 = team2.get(rand.nextInt(team2.size()));
+//            setFightTurn(unit, unit2);
+        }
+    }
+
+    public void partyLootTreasure() {
+        partyLootGold();
+        partyLootItems();
+        treasure.clear();
     }
 
 
@@ -134,11 +202,19 @@ public class Room {
         System.out.println(Arrays.toString(teamNames.toArray())
                 .replace(",", " and")
                 .replace("[", "")
-                .replace("]", "") + " after long journey encountered few monsters on their path.");
+                .replace("]", "")
+                + " after long journey encountered few monsters on their path.");
         System.out.println("Prepare for battle!");
 //        if (setBattle(team1, team2) != null) {
             ArrayList<Unit> team = setBattle(team1, team2);
         System.out.println("Your party found a treasure!");
-//        }
+        ArrayList<String> treasureNames = new ArrayList<>();
+        for (Item item : treasure) {
+            treasureNames.add(item.getName());
+        }
+        System.out.println(Arrays.toString(treasureNames.toArray())
+                .replace(",", " and")
+                .replace("[", "")
+                .replace("]", ""));
     }
 }

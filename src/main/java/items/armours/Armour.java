@@ -27,4 +27,9 @@ public class Armour extends Item {
     public int getDamageValue() {
         return 0;
     }
+
+    @Override
+    public int getAmountOfGold() {
+        return 0;
+    }
 }
