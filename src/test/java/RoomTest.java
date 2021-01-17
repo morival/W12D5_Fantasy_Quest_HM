@@ -26,6 +26,8 @@ public class RoomTest {
     Player dwarf;
     Monster ogre;
     Monster troll;
+    Monster kobold;
+    Monster giantSpider;
     Monster dragon;
     Room room;
 
@@ -43,6 +45,8 @@ public class RoomTest {
         dwarf = new Dwarf("Mountain King", 31, 2, 700);
         ogre = new Monster("Ogre", 14, 1, 400, MonsterType.OGRE);
         troll = new Monster("TROLL", 18, 0, 300, MonsterType.TROLL);
+        kobold = new Monster("KOBOLD", 13, 1, 325, MonsterType.KOBOLD);
+        giantSpider = new Monster("GIANT SPIDER", 19, 1, 550, MonsterType.GIANT_SPIDER);
         dragon = new Monster("DRAGON", 60, 6, 2200, MonsterType.DRAGON);
         room = new Room();
     }
@@ -66,6 +70,8 @@ public class RoomTest {
     public void setOpponents() {
         room.addUnitToOpponents(ogre);
         room.addUnitToOpponents(troll);
+        room.addUnitToOpponents(kobold);
+        room.addUnitToOpponents(giantSpider);
     }
 
     @Test
@@ -102,42 +108,13 @@ public class RoomTest {
         assertEquals(268, troll.getHp());
     }
 
-//    @Test
-//    public void hasDuel() {
-//        room.setFightTurn(barbarian, troll);
-//        int damageOnTroll = room.getDamageCount(barbarian, troll);
-//        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
-//        assertEquals(32, damageOnTroll);
-//        assertEquals(16, damageOnBarbarian);
-//        assertEquals(268, troll.getHp());
-//        assertEquals(709, barbarian.getHp());
-//    }
-
-//    @Test
-//    public void hasDuelWithWeaponAndArmour() {
-//        equipBarbarian();
-//        room.setFightTurn(barbarian, troll);
-//        int damageOnTroll = room.getDamageCount(barbarian, troll);
-//        int damageOnBarbarian = room.getDamageCount(troll, barbarian);
-//        assertEquals(35, damageOnTroll);
-//        assertEquals(14, damageOnBarbarian);
-//        assertEquals(265, troll.getHp());
-//        assertEquals(711, barbarian.getHp());
-//    }
-
-//    @Test
-//    public void canFightTillDead() {
-//        equipBarbarian();
-//        assertEquals(barbarian, room.setFightTillDead(barbarian, troll));
-//    }
-
     @Test
     public void setTeamsForCombat() {
         setParty();
         setOpponents();
         room.setEnemies(room.getParty(), room.getOpponents());
-//        assertEquals(2, room.partyCount());
-//        assertEquals(2, room.opponentsCount());
+        assertEquals(2, room.partyCount());
+        assertEquals(0, room.opponentsCount());
     }
 
 }

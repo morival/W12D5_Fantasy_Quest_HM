@@ -72,44 +72,26 @@ public class Room {
 
     public void setFightTurn(Unit a, Unit b) {
         getHPReductionFromDamage(a, b);
-        System.out.println( b.getName() + " received " + getDamageCount(a, b) + " damage from " + a.getName() + " and has " + b.getHp() + " HP");
+        System.out.println( b.getName() + " has " + b.getHp() + " HP after receiving " + getDamageCount(a, b) + " damage from " + a.getName());
         getHPReductionFromDamage(b, a);
-        System.out.println( a.getName() + " received " + getDamageCount(b, a) + " damage from " + b.getName() + " and has " + a.getHp() + " HP");
-    }
-
-    public Unit setFightTillDead(Unit a, Unit b) {
-        setFightTurn(a, b);
-//        System.out.println( a.getName() + " received " + getDamageCount(b, a) + " damage and has " + a.getHp() + " HP.");
-//        System.out.println( b.getName() + " received " + getDamageCount(a, b) + " damage and has " + b.getHp() + " HP.");
-        if (a.getHp() > 0 && b.getHp() > 0) {
-            return setFightTillDead(a, b);
-        } else if (a.getHp() <= 0) {
-            System.out.println(b.getName() + " won!");
-            return b;
-        } else if (b.getHp() <= 0) {
-            System.out.println(a.getName() + " won!");
-            return a;
-        } else {
-            System.out.println("Error");
-            return null;
-        }
+        System.out.println( a.getName() + " has " + a.getHp() + " HP after receiving " + getDamageCount(b, a) + " damage from " + b.getName());
     }
 
 
     // Battle
-    public void setEnemies(ArrayList<Unit> team1, ArrayList<Unit> team2){
-//        ArrayList<Unit> victoriousTeam = null;
+    public ArrayList<Unit> setEnemies(ArrayList<Unit> team1, ArrayList<Unit> team2){
+        ArrayList<Unit> victoriousTeam = null;
         if (team1.size() <= 0 && team2.size() <= 0) {
             System.out.println("No units in both teams");
-            return;
+            return null;
         } else if (team1.size() > 0 && team2.size() <= 0) {
             System.out.println("Your party won!");
-//            victoriousTeam = team1;
-            return;
+            victoriousTeam = team1;
+            return victoriousTeam;
         } else if (team1.size() <= 0 && team2.size() > 0) {
             System.out.println(team2.toString() + "Your party died");
-//            victoriousTeam = team2;
-            return;
+            victoriousTeam = team2;
+            return victoriousTeam;
         } else {
             Random rand = new Random();
             for (Unit unit : team1) {
@@ -133,8 +115,12 @@ public class Room {
                 }
             }
             setEnemies(team1, team2);
-        }
+        } return null;
     }
 
+    public void setRoom (ArrayList<Unit> team1, ArrayList<Unit> team2) {
+        if (setEnemies(team1, team2) == team1) {
 
+        }
+    }
 }
