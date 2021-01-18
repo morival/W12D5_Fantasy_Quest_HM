@@ -36,4 +36,9 @@ public class Monster extends Unit {
     public int inventoryCount() {
         return 0;
     }
+
+    @Override
+    public int getDamageTo(Unit defender) {
+        return 0;
+    }
 }

@@ -1,6 +1,8 @@
 package units.heroes.warriors;
 
 
+import units.Unit;
+
 public class Dwarf extends Warrior{
 
     public Dwarf(String name, int attack, int defence, int hp, int gold) {
@@ -8,4 +10,8 @@ public class Dwarf extends Warrior{
     }
 
 
+    @Override
+    public int getDamageTo(Unit defender) {
+        return 0;
+    }
 }

@@ -9,4 +9,6 @@ public abstract class Warrior extends Player {
         super(name, attack, defence, hp, gold);
 
     }
+
+
 }

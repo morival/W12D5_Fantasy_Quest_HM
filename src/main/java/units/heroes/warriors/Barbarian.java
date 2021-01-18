@@ -1,6 +1,8 @@
 package units.heroes.warriors;
 
 
+import units.Unit;
+
 public class Barbarian extends Warrior{
 
     public Barbarian(String name, int attack, int defence, int hp, int gold) {
@@ -8,4 +10,8 @@ public class Barbarian extends Warrior{
     }
 
 
+    @Override
+    public int getDamageTo(Unit defender) {
+        return 0;
+    }
 }

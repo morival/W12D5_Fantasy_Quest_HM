@@ -1,6 +1,7 @@
 package units.heroes.warriors;
 
 import items.Item;
+import units.Unit;
 
 public class Knight extends Warrior{
     public Knight(String name, int attack, int defence, int hp, int gold) {
@@ -8,4 +9,8 @@ public class Knight extends Warrior{
     }
 
 
+    @Override
+    public int getDamageTo(Unit defender) {
+        return 0;
+    }
 }

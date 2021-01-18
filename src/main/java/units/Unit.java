@@ -45,4 +45,6 @@ public abstract class Unit {
     public abstract void addToInventory(Item item);
 
     public abstract int inventoryCount();
+
+    public abstract int getDamageTo(Unit defender);
 }

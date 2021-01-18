@@ -1,6 +1,5 @@
 import items.armours.Armour;
 import items.armours.ArmourType;
-import items.magic.ElementalSpells;
 import items.treasures.Gold;
 import items.weapons.Weapon;
 import items.weapons.WeaponType;
@@ -53,7 +52,7 @@ public class RoomTest {
         gold2 = new Gold("Gold", 10000);
         barbarian = new Barbarian("Barbarian", 32, 2, 725, 0);
         dwarf = new Dwarf("Mountain King", 31, 2, 700, 0);
-        wizard = new Wizard("Wizard", 24, 3, 450, 0, 285, ElementalSpells.LIGHTNING);
+        wizard = new Wizard("Wizard", 24, 3, 450, 0, 285);
         ogre = new Monster("Ogre", 14, 1, 400, MonsterType.OGRE);
         troll = new Monster("TROLL", 18, 0, 300, MonsterType.TROLL);
         kobold = new Monster("KOBOLD", 13, 1, 325, MonsterType.KOBOLD);
