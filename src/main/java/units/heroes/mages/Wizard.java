@@ -59,8 +59,6 @@ public class Wizard extends Mage{
             reduceMana(selectedSpell);
             System.out.println(selectedSpell.getSpellName() + " - " + selectedSpell.getMagicDamage() + "   Wizard's Mana Points: " + getMana());
             returnedDamage = selectedSpell.getMagicDamage();
-        } else if (checkIfCanCastAnySpell() == false){
-
         }
         return returnedDamage;
     }
