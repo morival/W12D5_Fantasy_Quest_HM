@@ -11,7 +11,7 @@ public class Barbarian extends Warrior{
 
 
     @Override
-    public int getDamageTo(Unit defender) {
+    public int getDamageTo() {
         return 0;
     }
 }

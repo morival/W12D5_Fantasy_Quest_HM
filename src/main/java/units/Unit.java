@@ -46,5 +46,5 @@ public abstract class Unit {
 
     public abstract int inventoryCount();
 
-    public abstract int getDamageTo(Unit defender);
+    public abstract int getDamageTo();
 }

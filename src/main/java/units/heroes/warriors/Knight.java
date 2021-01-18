@@ -10,7 +10,7 @@ public class Knight extends Warrior{
 
 
     @Override
-    public int getDamageTo(Unit defender) {
+    public int getDamageTo() {
         return 0;
     }
 }

@@ -4,6 +4,7 @@ public enum SpellName {
 
     LIGHTNING,
     FIREBALL,
-    BLIZZARD
+    BLIZZARD,
+    EARTHQUAKE
 
 }

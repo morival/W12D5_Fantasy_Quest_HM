@@ -38,7 +38,7 @@ public class Monster extends Unit {
     }
 
     @Override
-    public int getDamageTo(Unit defender) {
+    public int getDamageTo() {
         return 0;
     }
 }

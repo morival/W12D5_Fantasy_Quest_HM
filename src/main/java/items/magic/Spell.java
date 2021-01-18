@@ -12,7 +12,17 @@ public class Spell {
         this.manaCost = manaCost;
     }
 
+    public SpellName getSpellName() {
+        return spellName;
+    }
 
+    public int getMagicDamage() {
+        return magicDamage;
+    }
+
+    public int getManaCost() {
+        return manaCost;
+    }
 
 }
 

@@ -3,8 +3,6 @@ import java.util.Arrays;
 import java.util.Random;
 
 import items.Item;
-import items.magic.Spell;
-import items.magic.SpellName;
 import units.Unit;
 
 public class Room {
@@ -133,14 +131,19 @@ public class Room {
 
     // Duel
     public int getDamageCount(Unit attacker, Unit defender) {
-        double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
-        double damage = attacker.getTotalAttackValue() * defence;
-        int dmg = attacker.getDamageTo(defender);
-        return (int) damage;
+        int damageCount = 0;
+        if (attacker.getDamageTo() == 0) {
+            double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
+            double damage = attacker.getTotalAttackValue() * defence;
+            damageCount = (int) damage;
+        } else if (attacker.getDamageTo() == 1) {
+//            damageCount =   // connect to Wizard
+        }
+        return damageCount;
     }
 
     public void getHPReductionFromDamage(Unit attacker, Unit defender) {
-        defender.reduceHP((int) getDamageCount(attacker, defender));
+        defender.reduceHP(getDamageCount(attacker, defender));
     }
 
     public void setFightTurn(Unit a, Unit b) {
