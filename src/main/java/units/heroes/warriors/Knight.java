@@ -15,6 +15,11 @@ public class Knight extends Warrior{
     }
 
     @Override
+    public String getProfession() {
+        return "Knight";
+    }
+
+    @Override
     public int selectAttackType() {
         return 0;
     }

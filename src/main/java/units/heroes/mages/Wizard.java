@@ -69,4 +69,9 @@ public class Wizard extends Mage{
     public int getDamageTo() {
         return 1;
     }
+
+    @Override
+    public String getProfession() {
+        return "Wizard";
+    }
 }

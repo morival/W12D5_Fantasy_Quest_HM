@@ -5,6 +5,7 @@ import items.weapons.Weapon;
 import items.weapons.WeaponType;
 import org.junit.Before;
 import org.junit.Test;
+import units.Unit;
 import units.heroes.Player;
 import units.heroes.mages.Wizard;
 import units.heroes.warriors.Barbarian;
@@ -193,22 +194,25 @@ public class RoomTest {
         assertEquals(268, troll.getHp());
     }
 
-//    @Test
-//    public void
+    @Test
+    public void canGetPhysicalDamage() {
+        assertEquals(31, room.getPhysicalDamage(dwarf, troll));
+        assertEquals(30, room.getPhysicalDamage(barbarian, kobold));
+    }
 
 
     // GAME TEST
 
-    @Test
-    public void canSetTeamsForCombat() {
-        setRoom();
-        assertEquals(2, room.partyCount());
-        assertEquals(0, room.opponentsCount());
-        assertEquals(6, room.itemsOwnedByHeroes());
-        assertEquals(0, room.treasureCount());
-        assertEquals(100, barbarian.getGold());
-        assertEquals(100, dwarf.getGold());
-    }
+//    @Test
+//    public void canSetTeamsForCombat() {
+//        setRoom();
+//        assertEquals(2, room.partyCount());
+//        assertEquals(0, room.opponentsCount());
+//        assertEquals(6, room.itemsOwnedByHeroes());
+//        assertEquals(0, room.treasureCount());
+//        assertEquals(100, barbarian.getGold());
+//        assertEquals(100, dwarf.getGold());
+//    }
 
 //    @Test
 //    public void canOverkillWithDragon() {

@@ -16,6 +16,11 @@ public class Dwarf extends Warrior{
     }
 
     @Override
+    public String getProfession() {
+        return "Dwarf";
+    }
+
+    @Override
     public int selectAttackType() {
         return 0;
     }

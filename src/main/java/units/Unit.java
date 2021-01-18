@@ -48,5 +48,7 @@ public abstract class Unit {
 
     public abstract int getDamageTo();
 
+    public abstract String getProfession();
+
     public abstract int selectAttackType();
 }

@@ -130,29 +130,56 @@ public class Room {
 
 
     // Duel
+    public int getPhysicalDamage(Unit attacker, Unit defender) {
+        int physicalDamage = 0;
+            double defence = 1 - (0.06 * defender.getTotalDefenceValue()) / (1 + (0.06 * defender.getTotalDefenceValue()));
+            double damage = attacker.getTotalAttackValue() * defence;
+            physicalDamage += (int) damage;
+        return physicalDamage;
+    }
+
     public int getDamageCount(Unit attacker, Unit defender) {
         int damageCount = 0;
-        if (attacker.getDamageTo() == 0) {
-            double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
-            double damage = attacker.getTotalAttackValue() * defence;
-            damageCount = (int) damage;
-        } else if (attacker.getDamageTo() == 1) {
+        if (attacker.getProfession() == "Wizard") {
             Random rand = new Random();
-            if (rand.nextBoolean()) {
-                double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
-                double damage = attacker.getTotalAttackValue() * defence;
-                damageCount = (int) damage;
-            } else {
+            if (rand.nextBoolean() == true) {
                 int magicAttack = attacker.selectAttackType();
-                if (magicAttack == 0) {
-                    getDamageCount(attacker, defender);
+                if (magicAttack != 0) {
+                    damageCount += magicAttack;
                 } else {
-                    damageCount = magicAttack;
+                    damageCount += getDamageCount(attacker, defender);
                 }
+            } else {
+                damageCount += getDamageCount(attacker, defender);
             }
+        } else {
+            damageCount += getDamageCount(attacker, defender);
         }
         return damageCount;
     }
+
+
+//        int damageCount = 0;
+//        if (attacker.getDamageTo() == 0) {
+//            double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
+//            double damage = attacker.getTotalAttackValue() * defence;
+//            damageCount = (int) damage;
+//        } else if (attacker.getDamageTo() == 1) {
+//            if (rand.nextBoolean()) {
+//                double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
+//                double damage = attacker.getTotalAttackValue() * defence;
+//                damageCount = (int) damage;
+//            } else {
+//                int magicAttack = attacker.selectAttackType();
+//                if (magicAttack == 0) {
+//                    getDamageCount(attacker, defender);
+//                } else {
+//                    damageCount = magicAttack;
+//                }
+//            }
+//        }
+//        return damageCount;
+//    }
 
     public void getHPReductionFromDamage(Unit attacker, Unit defender) {
         defender.reduceHP(getDamageCount(attacker, defender));

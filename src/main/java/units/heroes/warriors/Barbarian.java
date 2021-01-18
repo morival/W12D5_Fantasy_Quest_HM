@@ -16,6 +16,11 @@ public class Barbarian extends Warrior{
     }
 
     @Override
+    public String getProfession() {
+        return "Barbarian";
+    }
+
+    @Override
     public int selectAttackType() {
         return 0;
     }

@@ -43,6 +43,11 @@ public class Monster extends Unit {
     }
 
     @Override
+    public String getProfession() {
+        return "Monster";
+    }
+
+    @Override
     public int selectAttackType() {
         return 0;
     }
