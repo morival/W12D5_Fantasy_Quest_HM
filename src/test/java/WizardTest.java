@@ -4,9 +4,6 @@ import org.junit.Before;
 import org.junit.Test;
 import units.heroes.mages.Wizard;
 
-import java.lang.reflect.Array;
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
 
@@ -78,5 +75,16 @@ public class WizardTest {
     @Test
     public void canGetRandomSpell() {
         assertNotEquals(null, wizard.getRandomSpell().getSpellName());
+    }
+
+    @Test
+    public void canGetCheapestManaSpellCost() {
+        assertEquals(30, wizard.getCheapestManaSpellCost());
+    }
+
+    @Test
+    public void canReduceMana() {
+        wizard.reduceMana(wizard.getMagicBook().get(0));
+        assertEquals(215, wizard.getMana());
     }
 }

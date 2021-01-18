@@ -20,6 +20,10 @@ public abstract class Mage extends Player {
         return mana;
     }
 
+    public void reduceMana(Spell spell) {
+        mana -= spell.getManaCost();
+    }
+
     public ArrayList<Spell> getMagicBook() {
         return magicBook;
     }

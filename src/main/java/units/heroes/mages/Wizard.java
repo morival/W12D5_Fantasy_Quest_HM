@@ -29,15 +29,15 @@ public class Wizard extends Mage{
     }
 
     public Spell getRandomSpell() {
-        Spell randomSpell = null;
+        Spell selectedSpell = null;
         Random rand = new Random();
-        Spell spell = magicBook.get(rand.nextInt(magicBookCount()));
-        if (getMana() > spell.getManaCost()) {
-            randomSpell = spell;
-        } else {
+        Spell randomSpell = magicBook.get(rand.nextInt(magicBookCount()));
+        if (getMana() < randomSpell.getManaCost()) {
             getRandomSpell();
+        } else if (getMana() >= randomSpell.getManaCost()) {
+            selectedSpell = randomSpell;
         }
-        return randomSpell;
+        return selectedSpell;
     }
 
     public int getCheapestManaSpellCost() {
@@ -45,20 +45,22 @@ public class Wizard extends Mage{
         return cheapestSpell.getManaCost();
     }
 
-    public boolean chooseIfUseMagic() {
-        Random rand = new Random();
-        if (getMana() > getCheapestManaSpellCost()) {
-            return rand.nextBoolean();
+    public boolean checkIfCanCastAnySpell() {
+        if (getMana() >= getCheapestManaSpellCost()) {
+            return true;
         } else {
             return false;
         }
     }
     public int selectAttackType() {
         int returnedDamage = 0;
-        if (chooseIfUseMagic()) {
-            returnedDamage = getRandomSpell().getMagicDamage();
-        } else {
-            return returnedDamage;
+        if (checkIfCanCastAnySpell() == true) {
+            Spell selectedSpell = getRandomSpell();
+            reduceMana(selectedSpell);
+            System.out.println(selectedSpell.getSpellName() + " - " + selectedSpell.getMagicDamage() + "   Wizard's Mana Points: " + getMana());
+            returnedDamage = selectedSpell.getMagicDamage();
+        } else if (checkIfCanCastAnySpell() == false){
+
         }
         return returnedDamage;
     }
@@ -66,6 +68,5 @@ public class Wizard extends Mage{
     @Override
     public int getDamageTo() {
         return 1;
-//        return this.getTotalAttackValue();
     }
 }

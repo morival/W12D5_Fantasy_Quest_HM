@@ -104,7 +104,12 @@ public class RoomTest {
         room.addUnitToOpponents(dragon);
         room.addItemToTreasure(gold2);
         room.setQuest(room.getParty(), room.getOpponents(), story2);
+    }
 
+    public void setRoom3() {
+        room.addUnitToParty(wizard);
+        room.addUnitToOpponents(troll);
+        room.setQuest(room.getParty(), room.getOpponents(), story1);
     }
 
 
@@ -194,22 +199,29 @@ public class RoomTest {
 
     // GAME TEST
 
+    @Test
+    public void canSetTeamsForCombat() {
+        setRoom();
+        assertEquals(2, room.partyCount());
+        assertEquals(0, room.opponentsCount());
+        assertEquals(6, room.itemsOwnedByHeroes());
+        assertEquals(0, room.treasureCount());
+        assertEquals(100, barbarian.getGold());
+        assertEquals(100, dwarf.getGold());
+    }
+
 //    @Test
-//    public void canSetTeamsForCombat() {
-//        setRoom();
-//        assertEquals(2, room.partyCount());
-//        assertEquals(0, room.opponentsCount());
-//        assertEquals(6, room.itemsOwnedByHeroes());
-//        assertEquals(0, room.treasureCount());
-//        assertEquals(100, barbarian.getGold());
-//        assertEquals(100, dwarf.getGold());
+//    public void canOverkillWithDragon() {
+//        setRoom2();
+//        assertEquals(0, room.partyCount());
+//        assertEquals(1, room.opponentsCount());
 //    }
 
-    @Test
-    public void canOverkillWithDragon() {
-        setRoom2();
-        assertEquals(0, room.partyCount());
-        assertEquals(1, room.opponentsCount());
-    }
+//    @Test
+//    public void canRandomlyThrowSpells() {
+//        setRoom3();
+//        assertEquals(1, room.partyCount());
+//        assertEquals(0, room.opponentsCount());
+//    }
 
 }

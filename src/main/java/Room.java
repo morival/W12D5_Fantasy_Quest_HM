@@ -143,10 +143,11 @@ public class Room {
                 double damage = attacker.getTotalAttackValue() * defence;
                 damageCount = (int) damage;
             } else {
-                if (attacker.selectAttackType() ==0) {
+                int magicAttack = attacker.selectAttackType();
+                if (magicAttack == 0) {
                     getDamageCount(attacker, defender);
                 } else {
-                    damageCount = attacker.selectAttackType();
+                    damageCount = magicAttack;
                 }
             }
         }
