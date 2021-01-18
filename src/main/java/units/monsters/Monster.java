@@ -41,4 +41,9 @@ public class Monster extends Unit {
     public int getDamageTo() {
         return 0;
     }
+
+    @Override
+    public int selectAttackType() {
+        return 0;
+    }
 }

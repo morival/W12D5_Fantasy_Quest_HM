@@ -53,12 +53,14 @@ public class Wizard extends Mage{
             return false;
         }
     }
-    public void selectAttackType() {
+    public int selectAttackType() {
+        int returnedDamage = 0;
         if (chooseIfUseMagic()) {
-            getRandomSpell();
+            returnedDamage = getRandomSpell().getMagicDamage();
         } else {
-
+            return returnedDamage;
         }
+        return returnedDamage;
     }
 
     @Override

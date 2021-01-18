@@ -47,4 +47,6 @@ public abstract class Unit {
     public abstract int inventoryCount();
 
     public abstract int getDamageTo();
+
+    public abstract int selectAttackType();
 }

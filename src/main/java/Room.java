@@ -137,7 +137,18 @@ public class Room {
             double damage = attacker.getTotalAttackValue() * defence;
             damageCount = (int) damage;
         } else if (attacker.getDamageTo() == 1) {
-//            damageCount =   // connect to Wizard
+            Random rand = new Random();
+            if (rand.nextBoolean()) {
+                double defence = 1-(0.06 * defender.getTotalDefenceValue())/(1+(0.06 * defender.getTotalDefenceValue()));
+                double damage = attacker.getTotalAttackValue() * defence;
+                damageCount = (int) damage;
+            } else {
+                if (attacker.selectAttackType() ==0) {
+                    getDamageCount(attacker, defender);
+                } else {
+                    damageCount = attacker.selectAttackType();
+                }
+            }
         }
         return damageCount;
     }

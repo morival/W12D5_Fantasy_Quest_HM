@@ -14,4 +14,9 @@ public class Barbarian extends Warrior{
     public int getDamageTo() {
         return 0;
     }
+
+    @Override
+    public int selectAttackType() {
+        return 0;
+    }
 }
