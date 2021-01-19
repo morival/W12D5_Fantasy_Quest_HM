@@ -1,14 +1,12 @@
 package units.heroes.mages;
 
 
+import items.Item;
 import items.magic.Spell;
 import items.magic.SpellName;
 import units.Unit;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.Random;
+import java.util.*;
 
 
 public class Wizard extends Mage{
@@ -23,21 +21,28 @@ public class Wizard extends Mage{
     }
 
     public void createSpells() {
-        magicBook.add(new Spell(SpellName.LIGHTNING, 75, 70));
-        magicBook.add(new Spell(SpellName.FIREBALL, 50, 45));
+        magicBook.add(new Spell(SpellName.LIGHTNING, 100, 70));
+        magicBook.add(new Spell(SpellName.FIREBALL, 75, 45));
         magicBook.add(new Spell(SpellName.BLIZZARD, 40, 30));
     }
 
     public Spell getRandomSpell() {
-        Spell selectedSpell = null;
-        Random rand = new Random();
-        Spell randomSpell = magicBook.get(rand.nextInt(magicBookCount()));
-        if (getMana() < randomSpell.getManaCost()) {
-            getRandomSpell();
-        } else if (getMana() >= randomSpell.getManaCost()) {
-            selectedSpell = randomSpell;
+        ArrayList<Spell> spellCandidates = new ArrayList<Spell>(magicBook);
+        Iterator<Spell> itr = spellCandidates.iterator();
+
+        while(itr.hasNext()) {
+            Spell spell = itr.next();
+            if(spell.getManaCost() > getMana()) {
+                itr.remove();
+            }
         }
-        return selectedSpell;
+        if(spellCandidates.isEmpty()) {
+            return null;
+        }
+        else{
+            Random rand = new Random();
+            return spellCandidates.get(rand.nextInt(spellCandidates.size()));
+        }
     }
 
     public int getCheapestManaSpellCost() {
